@@ -99,6 +99,22 @@
       const storedScores = JSON.parse(localStorage.getItem(storageKey) || 'null');
       let highscores = Array.isArray(storedScores) && storedScores.length > 0 ? storedScores : defaultScores.slice();
 
+      // Load custom word list and case from URL parameters
+      const wordsParam = params.get('words');
+      const caseParam = params.get('case');
+      if (wordsParam) {
+        const list = wordsParam.split(',').map(w => decodeURIComponent(w));
+        originalWords = list;
+        WORDS = preserveCase ? list.slice() : list.map(x => x.toLowerCase());
+        usingCustomList = true;
+        document.getElementById('toggleList').textContent = 'Høyfrekvente ord';
+      }
+      if (caseParam === '1') {
+        preserveCase = true;
+        document.getElementById('toggleCase').textContent = 'Vis stor forbokstav: På';
+        WORDS = originalWords.slice();
+      }
+
       const puzzle = document.getElementById('puzzle');
       const wordListEl = document.getElementById('wordList');
       const namesOl = document.getElementById('hsNames');
