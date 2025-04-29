@@ -108,6 +108,8 @@
         WORDS = preserveCase ? list.slice() : list.map(x => x.toLowerCase());
         usingCustomList = true;
         document.getElementById('toggleList').textContent = 'Høyfrekvente ord';
+        // Hide the custom input textarea for shared tasks
+        document.getElementById('wordInput').style.display = 'none';
       }
       if (caseParam === '1') {
         preserveCase = true;
