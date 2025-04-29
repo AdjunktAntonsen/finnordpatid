@@ -324,10 +324,16 @@
       }
 
       document.getElementById('toggleList').addEventListener('click', toggleList);
-      document.getElementById('toggleCase').addEventListener('click', ()=>{
-        preserveCase=!preserveCase;
-        document.getElementById('toggleCase').textContent = `Vis stor forbokstav: ${preserveCase?'På':'Av'}`;
-        WORDS = preserveCase?originalWords.slice():originalWords.map(w=>w.toLowerCase());
+      document.getElementById('toggleCase').addEventListener('click', () => {
+        preserveCase = !preserveCase;
+        document.getElementById('toggleCase').textContent = `Vis stor forbokstav: ${preserveCase ? 'På' : 'Av'}`;
+        if (preserveCase) {
+          // Use the original input casing for words
+          WORDS = originalWords.slice();
+        } else {
+          // Convert all to lowercase
+          WORDS = originalWords.map(w => w.toLowerCase());
+        }
         createGame();
       });
       document.getElementById('shareLink').addEventListener('click', shareLink);
